@@ -1,0 +1,39 @@
+AllCops:
+  TargetRubyVersion: 2.3
+  Exclude:
+    - db/schema.rb
+    - config/**/*
+    - lib/task/*.rake
+
+Rails:
+  Enabled: true
+
+# Use only ascii symbols in identifiers.
+AsciiComments:
+  Enabled: false
+
+# Document classes and non-namespace modules.
+Documentation:
+  Enabled: false
+
+# Use the lambda method for multi-line lambdas.
+Lambda:
+  Enabled: false
+
+# Limit lines to 79 characters.
+LineLength:
+  Max: 79
+  Enabled: false
+
+# Avoid methods longer than 10 lines of code.
+MethodLength:
+  Max: 20
+  Enabled: true
+
+# Don't use self where it's not needed.
+RedundantSelf:
+  Enabled: false
+
+# Checks for proper usage of fail and raise.
+SignalException:
+  Enabled: false
