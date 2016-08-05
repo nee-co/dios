@@ -17,7 +17,7 @@ services:
     build: .
     image: dios-application
     environment:
-      - RAILS_ENV=development # TODO: productionとdevelopmentで切り替えられるようにする
+      - RAILS_ENV=production
       - DIOS_PORT=3000
       - DIOS_DATABASE_HOST=database
       - DIOS_DATABASE_USER=root

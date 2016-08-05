@@ -1,0 +1,9 @@
+version: '2'
+services:
+  application:
+    build: .
+    image: dios-application
+    volumes:
+      - .:/app
+    environment:
+      - RAILS_ENV=development
