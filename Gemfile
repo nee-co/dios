@@ -9,7 +9,6 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'settingslogic'
-gem 'draper'
 gem 'factory_girl_rails'
 
 group :development, :test do
