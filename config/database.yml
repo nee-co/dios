@@ -15,7 +15,7 @@ default: &default
   pool: 5
   username: <%= ENV['DIOS_DATABASE_USER'] || "root" %>
   password: <%= ENV['DIOS_DATABASE_PASSWORD'] || "" %>
-  host: <%= ENV['DIOS_DATABASE_HOST'] || "localhost" %>
+  host: <%= ENV['DIOS_DATABASE_HOST'] || "127.0.0.1" %>
 
 development:
   <<: *default
@@ -28,6 +28,21 @@ test:
 production:
   <<: *default
   database: dios_production
-  username: <%= ENV['DIOS_DATABASE_USER'] %>
-  password: <%= ENV['DIOS_DATABASE_PASSWORD'] %>
-  host: <%= ENV['DIOS_DATABASE_HOST'] %>
+
+cuenta:
+  database: cuenta_prod
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  username: <%= ENV['CUENTA_DATABASE_USER'] %>
+  password: <%= ENV['CUENTA_DATABASE_PASSWORD'] %>
+  host: <%= ENV['CUENTA_DATABASE_HOST'] %>
+
+aldea:
+  database: aldea_production
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  username: <%= ENV['ALDEA_DATABASE_USER'] %>
+  password: <%= ENV['ALDEA_DATABASE_PASSWORD'] %>
+  host: <%= ENV['ALDEA_DATABASE_HOST'] %>
