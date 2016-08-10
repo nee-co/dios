@@ -14,6 +14,8 @@ gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 gem 'ransack',             github: 'activerecord-hackery/ransack'
 gem 'draper',              '> 3.x'
 gem 'sass-rails',          github: 'rails/sass-rails'
+gem 'devise'
+gem 'bcrypt'
 
 group :development, :test do
   gem 'byebug', platform: :mri
