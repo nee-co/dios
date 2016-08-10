@@ -2,6 +2,7 @@ FROM ruby:2.3.1-alpine
 MAINTAINER Nee-co
 RUN apk --no-cache --update add mariadb-dev tzdata nodejs && \
     apk add --no-cache --virtual build-dependencies \
+    git \
     build-base \
     libxml2-dev \
     libxslt-dev && \
