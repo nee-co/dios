@@ -1,5 +1,6 @@
 FROM ruby:2.3.1-alpine
-MAINTAINER Nee-co
+ARG REVISION
+LABEL revision=$REVISION maintainer="Nee-co"
 ENV RAILS_ENV=production
 ENV RAILS_SERVE_STATIC_FILES=true
 RUN apk --no-cache --update add mariadb-dev tzdata nodejs && \

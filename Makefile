@@ -1,3 +1,5 @@
+REVISION=`git rev-parse HEAD`
+
 up_db:
 	docker-compose up -d cuenta-database aldea-database database
 
@@ -11,3 +13,6 @@ setup_aldea_db:
 
 setup_dios_db:
 	docker-compose run --rm application bundle exec rails db:setup
+
+build:
+	docker build --no-cache --tag dios-application --build-arg REVISION=$(REVISION) .

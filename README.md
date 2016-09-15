@@ -35,7 +35,7 @@ $ git clone git@bitbucket.org:<ユーザ名>/dios.git
 $ cd dios
 $ git remote add upstream git@bitbucket.org:nhac/dios.git
 $ git remote update
-$ docker-compose build
+$ make build
 $ cp docker-compose.override.yml{.development,}
 $ make up_db
 $ make setup_db
@@ -89,5 +89,5 @@ alpine> RAILS_ENV=development bundl exec rails server
 
 ```
 $ rm -f docker-compose.override.yml
-$ docker-compose build
+$ make build
 ```
