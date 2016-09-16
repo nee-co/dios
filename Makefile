@@ -16,3 +16,6 @@ setup_dios_db:
 
 build:
 	docker build --no-cache --tag dios-application --build-arg REVISION=$(REVISION) .
+
+dev-build:
+	docker build --tag dios-application --build-arg REVISION=$(REVISION) .
