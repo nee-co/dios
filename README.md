@@ -44,7 +44,7 @@ $ docker-compose run --rm -p 3000:3000 application ash
 
 ```
 alpine> bundle install
-alpine> RAILS_ENV=development bundl exec rails server
+alpine> RAILS_ENV=development bundle exec rails server
 ```
 
 ### ブランチ管理
@@ -88,6 +88,5 @@ alpine> RAILS_ENV=development bundl exec rails server
 ### Dockerイメージ作成
 
 ```
-$ rm -f docker-compose.override.yml
 $ make build
 ```

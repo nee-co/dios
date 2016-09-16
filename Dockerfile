@@ -1,6 +1,4 @@
 FROM ruby:2.3.1-alpine
-ARG REVISION
-LABEL revision=$REVISION maintainer="Nee-co"
 ENV RAILS_ENV=production
 ENV RAILS_SERVE_STATIC_FILES=true
 RUN apk --no-cache --update add mariadb-dev tzdata nodejs && \
@@ -16,4 +14,7 @@ COPY Gemfile.lock /app/Gemfile.lock
 WORKDIR /app
 RUN bundle install && apk del build-dependencies
 COPY . /app
+RUN DIOS_SECRET_KEY_BASE=x bundle exec rake assets:precompile
 CMD ["bundle", "exec", "rails", "server"]
+ARG REVISION
+LABEL revision=$REVISION maintainer="Nee-co"
