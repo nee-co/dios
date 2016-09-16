@@ -16,4 +16,5 @@ COPY Gemfile.lock /app/Gemfile.lock
 WORKDIR /app
 RUN bundle install && apk del build-dependencies
 COPY . /app
+RUN DIOS_SECRET_KEY_BASE=x bundle exec rake assets:precompile
 CMD ["bundle", "exec", "rails", "server"]
