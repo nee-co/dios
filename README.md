@@ -88,6 +88,5 @@ alpine> RAILS_ENV=development bundle exec rails server
 ### Dockerイメージ作成
 
 ```
-$ rm -f docker-compose.override.yml
 $ make build
 ```
