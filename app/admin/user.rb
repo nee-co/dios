@@ -9,17 +9,17 @@ ActiveAdmin.register User do
 
   index title: 'User' do
     id_column
-    column '学籍番号', :number
-    column '氏名', :name
-    column 'カレッジ', :college_name
-    column '登録日時', :inserted_at
+    column :number
+    column :name
+    column :college_name
+    column :inserted_at
     actions
   end
 
-  filter :id, label: 'ID'
-  filter :number, label: '学籍番号'
-  filter :name, label: '氏名'
-  filter :college, as: :check_boxes, label: 'カレッジ', collection: -> { College.all }
+  filter :id
+  filter :number
+  filter :name
+  filter :college, as: :check_boxes, collection: -> { College.all }
 
   show do
     attributes_table do
