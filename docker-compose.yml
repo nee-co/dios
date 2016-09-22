@@ -1,18 +1,13 @@
 version: '2'
 services:
-  datastore:
-    image: busybox
-    volumes:
-      - /var/lib/mysql
-      - /app/log
   database:
     image: mariadb
     environment:
       - MYSQL_ROOT_PASSWORD=root
-    volumes_from:
-      - datastore
     ports: # TODO: 開発用に開けている。頃合い見て閉じる
       - "3306:3306"
+    volumes:
+      - dios:/var/lib/mysql
   application:
     build: .
     image: dios-application
@@ -32,23 +27,16 @@ services:
       - "3000:3000"
     depends_on:
       - database
-    volumes_from:
-      - datastore
 
   # Cuenta
-  cuenta-datastore:
-    image: busybox
-    volumes:
-      - /var/lib/mysql
-      - /app/log
   cuenta-database:
     image: mariadb
     environment:
       - MYSQL_ROOT_PASSWORD=root
     ports: # TODO: 開発用に開けている。頃合い見て閉じる
       - "13306:3306"
-    volumes_from:
-      - cuenta-datastore
+    volumes:
+      - cuenta:/var/lib/mysql
   cuenta-application:
     image: cuenta-application
     environment:
@@ -59,23 +47,16 @@ services:
       - CUENTA_KONG_URL=http://kong-application:8001
     depends_on:
       - cuenta-database
-    volumes_from:
-      - cuenta-datastore
 
   # Aldea
-  aldea-datastore:
-    image: busybox
-    volumes:
-      - /var/lib/mysql
-      - /app/log
   aldea-database:
     image: mariadb
     environment:
       - MYSQL_ROOT_PASSWORD=root
     ports: # TODO: 開発用に開けている。頃合い見て閉じる
       - "23306:3306"
-    volumes_from:
-      - aldea-datastore
+    volumes:
+      - aldea:/var/lib/mysql
   aldea-application:
     image: aldea-application
     environment:
@@ -86,5 +67,14 @@ services:
       - ALDEA_SECRET_KEY_BASE=1f0bef8714009078799cf781b489f5012c625a12dc4478388634af4b784b72c5bd1e3f2630a361af351cfaf5bf84559f818b2796b9fcbc331cfa404a3805cb6f
     depends_on:
       - aldea-database
-    volumes_from:
-      - aldea-datastore
+
+volumes:
+  aldea:
+    external:
+      name: neeco_aldea
+  cuenta:
+    external:
+      name: neeco_cuenta
+  dios:
+    external:
+      name: neeco_dios
