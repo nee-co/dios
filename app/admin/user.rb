@@ -19,7 +19,7 @@ ActiveAdmin.register User do
   filter :id
   filter :number
   filter :name
-  filter :college, as: :check_boxes, collection: -> { College.all }
+  filter :college, as: :check_boxes, collection: College.all
 
   show do
     attributes_table do
