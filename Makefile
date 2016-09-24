@@ -1,7 +1,7 @@
 REVISION=`git rev-parse HEAD`
 
 up_db:
-	docker-compose up -d cuenta-database aldea-database database
+	docker-compose up -d kong-database cuenta-database aldea-database database
 
 setup_db: setup_cuenta_db setup_aldea_db setup_dios_db
 

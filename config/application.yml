@@ -1,0 +1,11 @@
+defaults: &defaults
+  kong_url: <%= ENV['DIOS_KONG_URL'] %>
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

@@ -16,6 +16,7 @@ gem 'draper',              '> 3.x'
 gem 'sass-rails',          github: 'rails/sass-rails'
 gem 'devise'
 gem 'bcrypt'
+gem 'flexirest'
 
 group :development, :test do
   gem 'byebug', platform: :mri
