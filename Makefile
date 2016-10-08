@@ -1,21 +1,30 @@
 REVISION=`git rev-parse HEAD`
 
+.PHONY: image dev-image up_db up_app setup_db volumes networks
+
+image:
+	docker build --no-cache --tag dios-application:$(REVISION) .
+
+dev-image:
+	docker build --tag dios-application:$(REVISION) .
+
 up_db:
-	docker-compose up -d kong-database cuenta-database aldea-database database
+	docker-compose up -d  dios-database
 
-setup_db: setup_cuenta_db setup_aldea_db setup_dios_db
+up_app:
+	docker-compose up -d  dios-application
 
-setup_cuenta_db:
-	docker-compose run --rm cuenta-application mix ecto.setup
-
-setup_aldea_db:
-	docker-compose run --rm aldea-application bundle exec rails db:setup
-
-setup_dios_db:
+setup_db:
 	docker-compose run --rm application bundle exec rails db:setup
 
-build:
-	docker build --no-cache --tag dios-application --build-arg REVISION=$(REVISION) .
+volumes:
+	@docker volume create --name neeco_aldea || true
+	@docker volume create --name neeco_cuenta || true
+	@docker volume create --name neeco_dios || true
+	@docker volume create --name neeco_kong || true
 
-dev-build:
-	docker build --tag dios-application --build-arg REVISION=$(REVISION) .
+networks:
+	@docker network create neeco_dios || true
+	@docker network create neeco_dios-aldea || true
+	@docker network create neeco_dios-cuenta || true
+	@docker network create neeco_dios-kong || true
