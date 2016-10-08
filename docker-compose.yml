@@ -1,14 +1,14 @@
 version: '2'
 services:
-  database:
+  dios-database:
     image: mariadb
     environment:
       - MYSQL_ROOT_PASSWORD=root
-    ports: # TODO: 開発用に開けている。頃合い見て閉じる
-      - "3306:3306"
     volumes:
       - dios:/var/lib/mysql
-  application:
+    networks:
+      - dios
+  dios-application:
     build: .
     image: dios-application
     environment:
@@ -27,63 +27,12 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - database
-
-  # Kong
-  kong-database:
-    image: postgres:9.4
-    environment:
-      - POSTGRES_USER=kong
-      - POSTGRES_DB=kong
+      - dios-database
     volumes:
-      - kong:/var/lib/postgresql/data
-  kong-application:
-    image: kong-application
-    environment:
-      - KONG_DATABASE=postgres
-      - KONG_PG_HOST=kong-database
-    depends_on:
-      - kong-database
-
-  # Cuenta
-  cuenta-database:
-    image: mariadb
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-    ports: # TODO: 開発用に開けている。頃合い見て閉じる
-      - "13306:3306"
-    volumes:
-      - cuenta:/var/lib/mysql
-  cuenta-application:
-    image: cuenta-application
-    environment:
-      - CUENTA_PORT=4000
-      - CUENTA_DATABASE_HOST=cuenta-database
-      - CUENTA_DATABASE_USER=root
-      - CUENTA_DATABASE_PASSWORD=root
-      - CUENTA_KONG_URL=http://kong-application:8001
-    depends_on:
-      - cuenta-database
-
-  # Aldea
-  aldea-database:
-    image: mariadb
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-    ports: # TODO: 開発用に開けている。頃合い見て閉じる
-      - "23306:3306"
-    volumes:
-      - aldea:/var/lib/mysql
-  aldea-application:
-    image: aldea-application
-    environment:
-      - ALDEA_PORT=3000
-      - ALDEA_DATABASE_HOST=aldea-database
-      - ALDEA_DATABASE_USER=root
-      - ALDEA_DATABASE_PASSWORD=root
-      - ALDEA_SECRET_KEY_BASE=1f0bef8714009078799cf781b489f5012c625a12dc4478388634af4b784b72c5bd1e3f2630a361af351cfaf5bf84559f818b2796b9fcbc331cfa404a3805cb6f
-    depends_on:
-      - aldea-database
+      - dios
+      - dios-aldea
+      - dios-cuenta
+      - dios-kong
 
 volumes:
   aldea:
@@ -92,9 +41,23 @@ volumes:
   cuenta:
     external:
       name: neeco_cuenta
-  kong:
-    external:
-      name: neeco_kong
   dios:
     external:
       name: neeco_dios
+  kong:
+    external:
+      name: neeco_kong
+
+networks:
+  dios:
+    external:
+      name: neeco_dios
+  dios-aldea:
+    external:
+      name: neeco_dios-aldea
+  dios-cuenta:
+    external:
+      name: neeco_dios-cuenta
+  dios-kong:
+    external:
+      name: neeco_dios-kong
