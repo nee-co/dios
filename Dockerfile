@@ -4,12 +4,9 @@ ENV RAILS_ENV=production
 ENV RAILS_SERVE_STATIC_FILES=true
 RUN apk --no-cache --update add mariadb-dev tzdata nodejs && \
     apk add --no-cache --virtual build-dependencies \
-    git \
     build-base \
     libxml2-dev \
-    libxslt-dev && \
-    bundle config build.nokogiri --use-system-libraries && \
-    gem install -N bundler nokogiri
+    libxslt-dev
 COPY Gemfile /app/Gemfile
 COPY Gemfile.lock /app/Gemfile.lock
 WORKDIR /app
