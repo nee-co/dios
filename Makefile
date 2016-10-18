@@ -15,7 +15,7 @@ up_app:
 	docker-compose up -d  dios-application
 
 setup_db:
-	docker-compose run --rm application bundle exec rails db:setup
+	docker-compose run --rm dios-application bundle exec rails db:setup
 
 volumes:
 	@docker volume create --name neeco_aldea || true
