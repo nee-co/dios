@@ -1,6 +1,6 @@
 version: '2'
 services:
-  application:
+  dios-application:
     volumes:
       - .:/app
     environment:

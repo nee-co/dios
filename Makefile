@@ -15,16 +15,14 @@ up_app:
 	docker-compose up -d  dios-application
 
 setup_db:
-	docker-compose run --rm application bundle exec rails db:setup
+	docker-compose run --rm dios-application bundle exec rails db:setup
 
 volumes:
-	@docker volume create --name neeco_aldea || true
-	@docker volume create --name neeco_cuenta || true
 	@docker volume create --name neeco_dios || true
-	@docker volume create --name neeco_kong || true
 
 networks:
 	@docker network create neeco_dios || true
 	@docker network create neeco_dios-aldea || true
+	@docker network create neeco_dios-caja || true
 	@docker network create neeco_dios-cuenta || true
 	@docker network create neeco_dios-kong || true
