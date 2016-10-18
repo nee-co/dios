@@ -31,6 +31,7 @@ services:
     networks:
       - dios
       - dios-aldea
+      - dios-caja
       - dios-cuenta
       - dios-kong
 
@@ -46,6 +47,9 @@ networks:
   dios-aldea:
     external:
       name: neeco_dios-aldea
+  dios-caja:
+    external:
+      name: neeco_dios-caja
   dios-cuenta:
     external:
       name: neeco_dios-cuenta
