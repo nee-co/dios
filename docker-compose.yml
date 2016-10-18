@@ -35,18 +35,9 @@ services:
       - dios-kong
 
 volumes:
-  aldea:
-    external:
-      name: neeco_aldea
-  cuenta:
-    external:
-      name: neeco_cuenta
   dios:
     external:
       name: neeco_dios
-  kong:
-    external:
-      name: neeco_kong
 
 networks:
   dios:
