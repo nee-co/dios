@@ -1,0 +1,13 @@
+panel 'API List' do
+  table_for api do
+    column :id
+    column :name
+    column :request_path
+    column :upstream_url
+    column(:plugins) { |api| api.plugins.map(&:name).join(' ') }
+    column(:actions) do |api|
+      link_to("Edit", admin_kong_edit_path(name: api.name)) + " " +
+      link_to("Delete", admin_kong_destroy_path(name: api.name), method: :delete)
+    end
+  end
+end
