@@ -22,6 +22,8 @@ gem 'sass-rails'
 gem 'devise'
 gem 'bcrypt'
 gem 'flexirest'
+gem 'active_admin_importable'
+gem 'active_skin'
 
 group :development, :test do
   gem 'byebug', platform: :mri

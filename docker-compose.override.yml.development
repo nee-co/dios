@@ -1,6 +1,7 @@
 version: '2'
 services:
   dios-application:
+    image: registry.neec.xyz/dev/dios-application:latest
     volumes:
       - .:/app
     environment:
