@@ -42,4 +42,40 @@ ActiveAdmin.register User do
     end
     actions
   end
+
+  # Import User
+  action_item :only => :index do
+    link_to "Import User", action: :upload_csv
+  end
+
+  collection_action :upload_csv do
+    render "admin/csv/upload_csv"
+  end
+
+  collection_action :import_csv, method: :post do
+    colleges = College.all
+    current = DateTime.current
+
+    users = ["Number", "Password"].to_csv
+    CsvDb.convert_save(User, params[:dump][:file]) do |model, hash|
+      number = hash[:number].downcase
+      random_password = SecureRandom.hex(6)
+      college = colleges.find { |c| c.code == number[4] }
+      begin
+        model.create(
+          name: number,
+          number: number.upcase,
+          college_id: college.id,
+          image_path: college.default_image_path,
+          encrypted_password: BCrypt::Password.create(random_password),
+          inserted_at: current,
+          updated_at: current
+        )
+        users << [number, random_password].to_csv
+      rescue => e
+        Rails.logger.error e
+      end
+    end
+    send_data users, filename: "#{Time.current.strftime('%Y%m%d')}_import_users.csv"
+  end
 end
