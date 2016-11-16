@@ -25,4 +25,4 @@ public/assets/
 # Docker
 docker-compose.override.yml
 
-config/dev_database.yml
+.env
