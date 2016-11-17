@@ -4,7 +4,7 @@ services:
     image: mariadb:10.1
     command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
     environment:
-      MYSQL_DATABASE: dios_production
+      MYSQL_DATABASE: dios_development
       MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
       MYSQL_USER: $DIOS_DATABASE_USER
       MYSQL_PASSWORD: $DIOS_DATABASE_PASSWORD
@@ -13,24 +13,27 @@ services:
     networks:
       - dios
   dios-application:
-    image: registry.neec.xyz/neeco/dios-application:latest
+    image: registry.neec.xyz/dev/dios-application:latest
     environment:
       DIOS_PORT: 3000
       DIOS_DATABASE_HOST: dios-database
       DIOS_DATABASE_USER:
       DIOS_DATABASE_PASSWORD:
       DIOS_SECRET_KEY_BASE:
-      DIOS_KONG_URL: http://kong-application:8001
+      KONG_URL: http://kong-application:8001
       CUENTA_DATABASE_HOST: cuenta-database
       CUENTA_DATABASE_USER:
       CUENTA_DATABASE_PASSWORD:
       ALDEA_DATABASE_HOST: aldea-database
       ALDEA_DATABASE_USER:
       ALDEA_DATABASE_PASSWORD:
-    ports:
-      - "3000:3000"
+      RAILS_ENV: development
     depends_on:
       - dios-database
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
     networks:
       - dios
       - dios-aldea
