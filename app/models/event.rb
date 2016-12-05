@@ -4,16 +4,16 @@
 #
 #  id                :integer          not null, primary key
 #  title             :string(255)      not null
-#  body              :text(65535)      not null
+#  body              :text(65535)
 #  register_id       :integer          not null
-#  published_at      :datetime
 #  started_at        :datetime
 #  ended_at          :datetime
 #  venue             :string(255)
 #  entry_upper_limit :integer
 #  status            :integer          default(0), not null
-#  created_at        :datetime
-#  updated_at        :datetime
+#  image             :string(255)
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
 #
 
 class Event < AldeaBase
