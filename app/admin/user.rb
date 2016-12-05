@@ -61,12 +61,14 @@ ActiveAdmin.register User do
       number = hash[:number].downcase
       random_password = SecureRandom.hex(6)
       college = colleges.find { |c| c.code == number[4] }
+      image_name = Imagen::Image.upload(File.open(Rails.root.join("files/images/#{number[4]}.png")))
+
       begin
         model.create(
-          name: number,
+          name: hash[:name],
           number: number.upcase,
           college_id: college.id,
-          image_path: college.default_image_path,
+          image: image_name,
           encrypted_password: BCrypt::Password.create(random_password),
           inserted_at: current,
           updated_at: current
@@ -74,6 +76,7 @@ ActiveAdmin.register User do
         users << [number, random_password].to_csv
       rescue => e
         Rails.logger.error e
+        Imagen::Image.delete(image_name: image_name)
       end
     end
     send_data users, filename: "#{Time.current.strftime('%Y%m%d')}_import_users.csv"
