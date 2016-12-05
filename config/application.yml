@@ -1,5 +1,6 @@
 defaults: &defaults
   kong_url: <%= ENV['KONG_URL'] %>
+  imagen_url: <%= ENV['IMAGEN_URL'] %>
 
 development:
   <<: *defaults
