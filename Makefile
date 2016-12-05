@@ -9,7 +9,7 @@ db:
 	docker-compose up -d  dios-database
 
 app:
-	docker-compose up -d  dios-application
+	docker-compose run -p 3000:3000 dios-application ash
 
 seed:
 	docker-compose run --rm dios-application bundle exec rails db:seed
