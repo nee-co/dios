@@ -36,6 +36,7 @@ services:
       - dios
       - dios-aldea
       - dios-cuenta
+      - dios-imagen
       - dios-kong
 
 volumes:
@@ -52,6 +53,9 @@ networks:
   dios-cuenta:
     external:
       name: neeco_dios-cuenta
+  dios-imagen:
+    external:
+      name: neeco_dios-imagen
   dios-kong:
     external:
       name: neeco_dios-kong
