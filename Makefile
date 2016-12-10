@@ -1,9 +1,4 @@
-REVISION=`git rev-parse HEAD`
-
-.PHONY: image db app migrate seed networks
-
-image:
-	docker build --tag dios-application --build-arg REVISION=$(REVISION) .
+.PHONY: db app migrate seed networks
 
 db:
 	docker-compose up -d  dios-database
