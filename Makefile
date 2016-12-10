@@ -1,6 +1,6 @@
 REVISION=`git rev-parse HEAD`
 
-.PHONY: image db app seed migrate networks
+.PHONY: image db app migrate seed networks
 
 image:
 	docker build --tag dios-application --build-arg REVISION=$(REVISION) .
@@ -11,11 +11,11 @@ db:
 app:
 	docker-compose run -p 3000:3000 dios-application ash
 
-seed:
-	docker-compose run --rm dios-application bundle exec rails db:seed
-
 migrate:
 	docker-compose run --rm dios-application bundle exec rails db:migrate
+
+seed:
+	docker-compose run --rm dios-application bundle exec rails db:seed
 
 networks:
 	@docker network create neeco_dios || true
