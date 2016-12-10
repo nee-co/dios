@@ -35,11 +35,8 @@ $ git clone git@bitbucket.org:<ユーザ名>/dios.git
 $ cd dios
 $ git remote add upstream git@bitbucket.org:nhac/dios.git
 $ git remote update
-$ make build
-$ cp docker-compose.override.yml{.development,}
-$ make up_db
-$ make setup_db
-$ docker-compose run --rm -p 3000:3000 application ash
+$ make db
+$ make app
 ```
 
 ```
@@ -55,11 +52,8 @@ alpine> RAILS_ENV=development bundle exec rails server
 
 ### 開発フロー
 
-- チケット作成/担当を自分に振る(振られる)
-
 - ブランチを切る
     * Bitbucket上, ローカル どちらで切っても良い
-    * `NEECO-<チケット番号>`
 
 - コミット
     * コミットの粒度に気をつける(コミットメッセージが上手く書けない時はコミット粒度が悪い)
@@ -79,7 +73,7 @@ alpine> RAILS_ENV=development bundle exec rails server
 - プルリクエスト
     * Bitbucket上でupstreamリポジトリにPR(プルリクエスト)を出す
     * PRを出す前に最新のdevelopからをrebaseしておくとコンフリクトに対応しやすい
-    * PRを出すまではrebaseやammendはやっても良いが、PR後は避けるべき
+    * PRを出すまではrebaseやamendはやっても良いが、PR後は避けるべき
     * 宛先branchはdevelopにする
     * `Title` `説明`はわかりやすくする(チケット番号をつけるとチケットを追いやすいためGood)
     * レビューアがマージする(プルリクエストを出した本人は基本的にマージしない)
@@ -89,6 +83,3 @@ alpine> RAILS_ENV=development bundle exec rails server
 
 * ネットワーク作成
     + `make networks`
-
-* ボリューム作成
-    + `make volumes`
