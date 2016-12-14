@@ -7,7 +7,7 @@
 #  number             :string(9)        not null
 #  encrypted_password :string(255)      not null
 #  college_id         :integer
-#  image              :string(255)      default(""), not null
+#  image              :string(255)      not null
 #  note               :string(255)      default(""), not null
 #  inserted_at        :datetime         not null
 #  updated_at         :datetime         not null

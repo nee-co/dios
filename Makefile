@@ -14,6 +14,7 @@ seed:
 
 networks:
 	@docker network create neeco_dios || true
+	@docker network create neeco_dios-aldea || true
 	@docker network create neeco_dios-cuenta || true
 	@docker network create neeco_dios-imagen || true
 	@docker network create neeco_dios-kong || true
