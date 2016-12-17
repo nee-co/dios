@@ -1,5 +1,7 @@
-ActiveAdmin.register User do
-  decorate_with UserDecorator
+ActiveAdmin.register Cuenta::User do
+  menu parent: "Cuenta"
+
+  decorate_with Cuenta::UserDecorator
 
   actions :all, except: %i(new create)
 
@@ -19,7 +21,7 @@ ActiveAdmin.register User do
   filter :id
   filter :number
   filter :name
-  filter :college, as: :check_boxes, collection: College.all
+  filter :college, as: :check_boxes, collection: Cuenta::College.all
 
   show do
     attributes_table do
@@ -53,11 +55,11 @@ ActiveAdmin.register User do
   end
 
   collection_action :import_csv, method: :post do
-    colleges = College.all
+    colleges = Cuenta::College.all
     current = DateTime.current
 
     users = ["Number", "Password"].to_csv
-    CsvDb.convert_save(User, params[:dump][:file]) do |model, hash|
+    CsvDb.convert_save(Cuenta::User, params[:dump][:file]) do |model, hash|
       number = hash[:number].downcase
       random_password = SecureRandom.hex(6)
       college = colleges.find { |c| c.code == number[4] }

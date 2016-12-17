@@ -9,6 +9,6 @@
 #  updated_at  :datetime         not null
 #
 
-class College < CuentaBase
-  has_many :users
+class Cuenta::College < Cuenta::Base
+  has_many :users, class_name: Cuenta::User
 end

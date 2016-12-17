@@ -1,15 +1,17 @@
 # == Schema Information
 #
-# Table name: entries
+# Table name: comments
 #
 #  id         :integer          not null, primary key
+#  body       :text(65535)      not null
 #  event_id   :integer          not null
 #  user_id    :integer          not null
+#  posted_at  :datetime         not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
-class Entry < AldeaBase
-  belongs_to :user
-  belongs_to :event
+class Aldea::Comment < Aldea::Base
+  belongs_to :event, class_name: Aldea::Event
+  belongs_to :user, class_name: Cuenta::User
 end

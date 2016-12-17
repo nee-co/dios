@@ -1,5 +1,7 @@
-ActiveAdmin.register Event do
-  decorate_with EventDecorator
+ActiveAdmin.register Aldea::Event do
+  menu parent: "Aldea"
+
+  decorate_with Aldea::EventDecorator
 
   actions :all
 
@@ -11,7 +13,7 @@ ActiveAdmin.register Event do
     id_column
     column :title
     column(:owner) do |event|
-      link_to event.owner_name, admin_user_path(event.owner_id)
+      link_to event.owner_name, admin_cuenta_user_path(event.owner_id)
     end
     column :start_date
     column :is_public
@@ -34,7 +36,7 @@ ActiveAdmin.register Event do
       row :title
       row :body
       row(:owner) do |event|
-        link_to event.owner_name, admin_user_path(event.owner_id)
+        link_to event.owner_name, admin_cuenta_user_path(event.owner_id)
       end
       row :start_date
       row :is_public
@@ -44,17 +46,17 @@ ActiveAdmin.register Event do
     end
 
     panel "Event Entries" do
-      table_for event.entries.map(&:user) do
+      table_for aldea_event.entries.map(&:user) do
         column(:user) do |user|
-          link_to user.name, admin_user_path(user.id)
+          link_to user.name, admin_cuenta_user_path(user.id)
         end
       end
     end
 
     panel "Event Comment" do
-      table_for event.comments do
+      table_for aldea_event.comments do
         column(:user) do |comment|
-          link_to comment.user_name, admin_user_path(comment.user_id)
+          link_to comment.user_name, admin_cuenta_user_path(comment.user_id)
         end
         column :body
         column :posted_at

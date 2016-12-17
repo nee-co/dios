@@ -1,4 +1,4 @@
-class EventDecorator < Draper::Decorator
+class Aldea::EventDecorator < Draper::Decorator
   delegate_all
   decorates_association :comments
 

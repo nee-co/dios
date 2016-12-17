@@ -1,4 +1,4 @@
-class UserDecorator < Draper::Decorator
+class Cuenta::UserDecorator < Draper::Decorator
   delegate_all
 
   delegate :name, to: :college, prefix: true, allow_nil: true
