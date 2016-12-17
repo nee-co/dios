@@ -12,9 +12,7 @@ ActiveAdmin.register Aldea::Event do
   index title: 'Event' do
     id_column
     column :title
-    column(:owner) do |event|
-      link_to event.owner_name, admin_cuenta_user_path(event.owner_id)
-    end
+    column :owner
     column :start_date
     column :is_public
     column :image
@@ -35,9 +33,7 @@ ActiveAdmin.register Aldea::Event do
       row :id
       row :title
       row :body
-      row(:owner) do |event|
-        link_to event.owner_name, admin_cuenta_user_path(event.owner_id)
-      end
+      row :owner
       row :start_date
       row :is_public
       row :image
@@ -46,18 +42,14 @@ ActiveAdmin.register Aldea::Event do
     end
 
     panel "Event Entries" do
-      table_for aldea_event.entries.map(&:user) do
-        column(:user) do |user|
-          link_to user.name, admin_cuenta_user_path(user.id)
-        end
+      table_for aldea_event.entries do
+        column :user
       end
     end
 
     panel "Event Comment" do
       table_for aldea_event.comments do
-        column(:user) do |comment|
-          link_to comment.user_name, admin_cuenta_user_path(comment.user_id)
-        end
+        column :user
         column :body
         column :posted_at
       end
