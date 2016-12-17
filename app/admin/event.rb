@@ -3,9 +3,9 @@ ActiveAdmin.register Aldea::Event do
 
   decorate_with Aldea::EventDecorator
 
-  actions :all
+  actions :all, except: %i(new create)
 
-  permit_params :title, :body, :owner_id, :start_date, :is_public, :image
+  permit_params :title, :body, :owner_id, :start_date, :is_public
 
   config.sort_order = 'start_date_asc'
 
@@ -66,7 +66,6 @@ ActiveAdmin.register Aldea::Event do
       input :owner_id, required: true
       input :start_date, as: :datepicker, datepicker_options: { min_date: DateTime.now }
       input :is_public, required: true
-      input :image, required: true
     end
     actions
   end
