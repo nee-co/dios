@@ -50,7 +50,7 @@ ActiveAdmin.register Caja::Folder do
 
     panel "Elements" do
       table_for caja_folder.folders do
-        column(:name) do |folder|
+        column("folder name", :name) do |folder|
           link_to folder.name, admin_caja_folder_path(folder.id)
         end
         column :inserted_user
@@ -60,7 +60,7 @@ ActiveAdmin.register Caja::Folder do
       end
 
       table_for caja_folder.files do
-        column(:name) do |file|
+        column("file name", :name) do |file|
           link_to file.name, admin_caja_file_path(file.id)
         end
         column :inserted_user
