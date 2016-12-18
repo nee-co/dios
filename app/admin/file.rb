@@ -4,6 +4,7 @@ ActiveAdmin.register Caja::File do
   actions :all, only: %i(index show)
 
   index title: 'File' do
+    selectable_column
     id_column
     column :name
     column :group_id

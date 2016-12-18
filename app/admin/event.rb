@@ -10,6 +10,7 @@ ActiveAdmin.register Aldea::Event do
   config.sort_order = 'start_date_asc'
 
   index title: 'Event' do
+    selectable_column
     id_column
     column :title
     column :owner

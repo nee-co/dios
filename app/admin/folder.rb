@@ -4,6 +4,7 @@ ActiveAdmin.register Caja::Folder do
   actions :all, only: %i(index show)
 
   index title: 'Folder' do
+    selectable_column
     id_column
     column :name
     column :group_id

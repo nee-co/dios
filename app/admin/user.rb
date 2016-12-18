@@ -10,6 +10,7 @@ ActiveAdmin.register Cuenta::User do
   config.sort_order = 'id_asc'
 
   index title: 'User' do
+    selectable_column
     id_column
     column :number
     column :name
