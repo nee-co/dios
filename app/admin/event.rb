@@ -9,6 +9,12 @@ ActiveAdmin.register Aldea::Event do
 
   config.sort_order = 'start_date_asc'
 
+  controller do
+    def scoped_collection
+      Aldea::Event.includes([:owner, :entries])
+    end
+  end
+
   index title: 'Event' do
     selectable_column
     id_column

@@ -9,6 +9,12 @@ ActiveAdmin.register Cuenta::User do
 
   config.sort_order = 'id_asc'
 
+  controller do
+    def scoped_collection
+      Cuenta::User.includes(:college)
+    end
+  end
+
   index title: 'User' do
     selectable_column
     id_column

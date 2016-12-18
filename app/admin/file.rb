@@ -3,6 +3,12 @@ ActiveAdmin.register Caja::File do
 
   actions :all, only: %i(index show)
 
+  controller do
+    def scoped_collection
+      Caja::File.includes([:parent, :inserted_user, :updated_user])
+    end
+  end
+
   index title: 'File' do
     selectable_column
     id_column

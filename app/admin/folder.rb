@@ -3,6 +3,19 @@ ActiveAdmin.register Caja::Folder do
 
   actions :all, only: %i(index show)
 
+  controller do
+    before_filter only: :index do
+      if params[:commit].blank? && params[:q].blank?
+        extra_params = {"q" => { parent_id_eq: 0 }}
+        params.merge! extra_params
+      end
+    end
+
+    def scoped_collection
+      Caja::Folder.includes([:parent, :inserted_user, :updated_user])
+    end
+  end
+
   index title: 'Folder' do
     selectable_column
     id_column
@@ -22,15 +35,6 @@ ActiveAdmin.register Caja::Folder do
   filter :updated_user
   filter :inserted_at
   filter :updated_at
-
-  controller do
-    before_filter only: :index do
-      if params[:commit].blank? && params[:q].blank?
-        extra_params = {"q" => { parent_id_eq: 0 }}
-        params.merge! extra_params
-      end
-    end
-  end
 
   show do
     attributes_table do
