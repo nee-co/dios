@@ -71,7 +71,7 @@ ActiveAdmin.register Aldea::Event do
       input :title, required: true
       input :body, required: true
       input :owner_id, required: true
-      input :start_date, as: :datepicker, datepicker_options: { min_date: DateTime.now }
+      input :start_date, as: :datepicker
       input :is_public, required: true
     end
     actions
