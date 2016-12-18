@@ -13,9 +13,9 @@
 #  updated_at         :datetime         not null
 #
 
-class User < CuentaBase
-  has_many :comments, dependent: :delete_all
-  has_many :entries, dependent: :delete_all
-  has_many :events, through: :entries
-  belongs_to :college
+class Cuenta::User < Cuenta::Base
+  has_many :comments, class_name: Aldea::Comment, dependent: :delete_all
+  has_many :entries, class_name: Aldea::Entry, dependent: :delete_all
+  has_many :events, class_name: Aldea::Event, through: :entries
+  belongs_to :college, class_name: Cuenta::College
 end

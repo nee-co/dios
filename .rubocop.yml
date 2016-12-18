@@ -9,31 +9,26 @@ Rails:
   Enabled: true
 
 # Use only ascii symbols in identifiers.
-AsciiComments:
+Style/AsciiComments:
   Enabled: false
 
 # Document classes and non-namespace modules.
-Documentation:
+Style/Documentation:
   Enabled: false
 
 # Use the lambda method for multi-line lambdas.
-Lambda:
+Style/Lambda:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
   Enabled: false
 
 # Limit lines to 79 characters.
-LineLength:
+Metrics/LineLength:
   Max: 79
   Enabled: false
 
-# Avoid methods longer than 10 lines of code.
-MethodLength:
+# Avoid methods longer than 20 lines of code.
+Metrics/MethodLength:
   Max: 20
   Enabled: true
-
-# Don't use self where it's not needed.
-RedundantSelf:
-  Enabled: false
-
-# Checks for proper usage of fail and raise.
-SignalException:
-  Enabled: false

@@ -1,5 +1,7 @@
-ActiveAdmin.register User do
-  decorate_with UserDecorator
+ActiveAdmin.register Cuenta::User do
+  menu parent: 'Cuenta'
+
+  decorate_with Cuenta::UserDecorator
 
   actions :all, except: %i(new create)
 
@@ -7,7 +9,14 @@ ActiveAdmin.register User do
 
   config.sort_order = 'id_asc'
 
+  controller do
+    def scoped_collection
+      Cuenta::User.includes(:college)
+    end
+  end
+
   index title: 'User' do
+    selectable_column
     id_column
     column :number
     column :name
@@ -19,7 +28,7 @@ ActiveAdmin.register User do
   filter :id
   filter :number
   filter :name
-  filter :college, as: :check_boxes, collection: College.all
+  filter :college, as: :check_boxes, collection: Cuenta::College.all
 
   show do
     attributes_table do
@@ -34,7 +43,7 @@ ActiveAdmin.register User do
   end
 
   form do |f|
-    f.semantic_errors *f.object.errors.keys
+    f.semantic_errors(*f.object.errors.keys)
     inputs 'User' do
       input :name, required: true
       input :number, required: true
@@ -44,20 +53,20 @@ ActiveAdmin.register User do
   end
 
   # Import User
-  action_item :only => :index do
-    link_to "Import User", action: :upload_csv
+  action_item only: :index do
+    link_to 'Import User', action: :upload_csv
   end
 
   collection_action :upload_csv do
-    render "admin/csv/upload_csv"
+    render 'admin/csv/upload_csv'
   end
 
   collection_action :import_csv, method: :post do
-    colleges = College.all
+    colleges = Cuenta::College.all
     current = DateTime.current
 
-    users = ["Number", "Password"].to_csv
-    CsvDb.convert_save(User, params[:dump][:file]) do |model, hash|
+    users = %w(Number Password).to_csv
+    CsvDb.convert_save(Cuenta::User, params[:dump][:file]) do |model, hash|
       number = hash[:number].downcase
       random_password = SecureRandom.hex(6)
       college = colleges.find { |c| c.code == number[4] }

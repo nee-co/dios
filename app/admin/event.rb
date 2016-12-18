@@ -1,18 +1,25 @@
-ActiveAdmin.register Event do
-  decorate_with EventDecorator
+ActiveAdmin.register Aldea::Event do
+  menu parent: 'Aldea'
 
-  actions :all
+  decorate_with Aldea::EventDecorator
 
-  permit_params :title, :body, :owner_id, :start_date, :is_public, :image
+  actions :all, except: %i(new create)
+
+  permit_params :title, :body, :owner_id, :start_date, :is_public
 
   config.sort_order = 'start_date_asc'
 
+  controller do
+    def scoped_collection
+      Aldea::Event.includes([:owner, :entries])
+    end
+  end
+
   index title: 'Event' do
+    selectable_column
     id_column
     column :title
-    column(:owner) do |event|
-      link_to event.owner_name, admin_user_path(event.owner_id)
-    end
+    column :owner
     column :start_date
     column :is_public
     column :image
@@ -33,9 +40,7 @@ ActiveAdmin.register Event do
       row :id
       row :title
       row :body
-      row(:owner) do |event|
-        link_to event.owner_name, admin_user_path(event.owner_id)
-      end
+      row :owner
       row :start_date
       row :is_public
       row :image
@@ -43,19 +48,15 @@ ActiveAdmin.register Event do
       row :updated_at
     end
 
-    panel "Event Entries" do
-      table_for event.entries.map(&:user) do
-        column(:user) do |user|
-          link_to user.name, admin_user_path(user.id)
-        end
+    panel 'Event Entries' do
+      table_for aldea_event.entries do
+        column :user
       end
     end
 
-    panel "Event Comment" do
-      table_for event.comments do
-        column(:user) do |comment|
-          link_to comment.user_name, admin_user_path(comment.user_id)
-        end
+    panel 'Event Comment' do
+      table_for aldea_event.comments do
+        column :user
         column :body
         column :posted_at
       end
@@ -65,14 +66,13 @@ ActiveAdmin.register Event do
   end
 
   form do |f|
-    f.semantic_errors *f.object.errors.keys
+    f.semantic_errors(*f.object.errors.keys)
     inputs 'Event' do
       input :title, required: true
       input :body, required: true
       input :owner_id, required: true
-      input :start_date, as: :datepicker, datepicker_options: { min_date: DateTime.now }
+      input :start_date, as: :datepicker
       input :is_public, required: true
-      input :image, required: true
     end
     actions
   end

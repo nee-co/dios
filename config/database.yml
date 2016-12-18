@@ -29,6 +29,15 @@ production:
   <<: *default
   database: dios_production
 
+caja:
+  database: caja_production
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  username: <%= ENV['CAJA_DATABASE_USER'] %>
+  password: <%= ENV['CAJA_DATABASE_PASSWORD'] %>
+  host: <%= ENV['CAJA_DATABASE_HOST'] %>
+
 cuenta:
   database: cuenta_prod
   adapter: mysql2

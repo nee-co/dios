@@ -1,4 +1,4 @@
-class CommentDecorator < Draper::Decorator
+class Aldea::CommentDecorator < Draper::Decorator
   delegate_all
 
   delegate :name, to: :user, prefix: true, allow_nil: true

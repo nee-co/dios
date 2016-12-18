@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
 
@@ -18,7 +18,7 @@ gem 'activeadmin', '~> 1.0.0.pre4'
 gem 'jquery-ui-rails', '~> 5.0.5'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 gem 'ransack'
-gem 'draper',              '> 3.x'
+gem 'draper', '> 3.x'
 gem 'sass-rails'
 gem 'devise'
 gem 'bcrypt'
