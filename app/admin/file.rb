@@ -1,5 +1,5 @@
 ActiveAdmin.register Caja::File do
-  menu parent: "Caja"
+  menu parent: 'Caja'
 
   actions :all, only: %i(index show)
 

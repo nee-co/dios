@@ -1,5 +1,5 @@
 ActiveAdmin.register Cuenta::User do
-  menu parent: "Cuenta"
+  menu parent: 'Cuenta'
 
   decorate_with Cuenta::UserDecorator
 
@@ -43,7 +43,7 @@ ActiveAdmin.register Cuenta::User do
   end
 
   form do |f|
-    f.semantic_errors *f.object.errors.keys
+    f.semantic_errors(*f.object.errors.keys)
     inputs 'User' do
       input :name, required: true
       input :number, required: true
@@ -53,19 +53,19 @@ ActiveAdmin.register Cuenta::User do
   end
 
   # Import User
-  action_item :only => :index do
-    link_to "Import User", action: :upload_csv
+  action_item only: :index do
+    link_to 'Import User', action: :upload_csv
   end
 
   collection_action :upload_csv do
-    render "admin/csv/upload_csv"
+    render 'admin/csv/upload_csv'
   end
 
   collection_action :import_csv, method: :post do
     colleges = Cuenta::College.all
     current = DateTime.current
 
-    users = ["Number", "Password"].to_csv
+    users = %w(Number Password).to_csv
     CsvDb.convert_save(Cuenta::User, params[:dump][:file]) do |model, hash|
       number = hash[:number].downcase
       random_password = SecureRandom.hex(6)

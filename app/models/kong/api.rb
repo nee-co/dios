@@ -2,13 +2,13 @@ module Kong
   class Api < Flexirest::Base
     include Kong::ApiClient
 
-    get :find, "/apis/:id"
-    get :plugins, "/apis/:id/plugins"
-    post :add_plugin, "/apis/:id/plugins"
-    delete :delete_plugin, "/apis/:api_id/plugins/:plugin_id"
-    post :create, "/apis"
-    patch :update, "/apis/:id"
-    delete :delete, "/apis/:id"
+    get :find, '/apis/:id'
+    get :plugins, '/apis/:id/plugins'
+    post :add_plugin, '/apis/:id/plugins'
+    delete :delete_plugin, '/apis/:api_id/plugins/:plugin_id'
+    post :create, '/apis'
+    patch :update, '/apis/:id'
+    delete :delete, '/apis/:id'
 
     def self.all
       _request('/apis', :get).data
@@ -34,7 +34,7 @@ module Kong
     end
 
     def sync_plugins(expected_plugins)
-      current_plugins = self.plugins.map(&:name)
+      current_plugins = plugins.map(&:name)
       delete_plugins(current_plugins - expected_plugins)
       add_plugins(expected_plugins - current_plugins)
     end
@@ -47,25 +47,27 @@ module Kong
 
     def add_plugins(plugin_names)
       plugin_names.each do |plugin|
-        params = { id: self.id, name: plugin }.merge(::Kong::Api.send("#{plugin}_params"))
+        params = { id: id, name: plugin }.merge(::Kong::Api.send("#{plugin}_params"))
         ::Kong::Api.add_plugin(params)
       end
     end
 
     def delete_plugins(plugin_names)
       plugins.select { |plugin| plugin_names.include?(plugin.name) }.each do |plugin|
-        ::Kong::Api.delete_plugin(api_id: self.id, plugin_id: plugin.id)
+        ::Kong::Api.delete_plugin(api_id: id, plugin_id: plugin.id)
       end
     end
 
     def self.jwt_params
       {
-        "config.claims_to_verify": "exp"
+        "config.claims_to_verify": 'exp'
       }
     end
     private_class_method :jwt_params
 
-    def self.cors_params() {} end
+    def self.cors_params
+      {}
+    end
     private_class_method :cors_params
   end
 end

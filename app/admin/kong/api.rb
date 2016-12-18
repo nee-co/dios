@@ -1,7 +1,6 @@
 ActiveAdmin.register_page 'Kong' do
-
   action_item :new, only: :index do
-    link_to "New API", admin_kong_new_path
+    link_to 'New API', admin_kong_new_path
   end
 
   page_action :new, method: :get

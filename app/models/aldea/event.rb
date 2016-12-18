@@ -15,6 +15,6 @@
 
 class Aldea::Event < Aldea::Base
   has_many :comments, class_name: Aldea::Comment, dependent: :delete_all
-  has_many :entries, class_name: Aldea::Entry,  dependent: :delete_all
+  has_many :entries, class_name: Aldea::Entry, dependent: :delete_all
   belongs_to :owner, class_name: Cuenta::User
 end

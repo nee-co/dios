@@ -15,7 +15,7 @@
 
 class Cuenta::User < Cuenta::Base
   has_many :comments, class_name: Aldea::Comment, dependent: :delete_all
-  has_many :entries, class_name: Aldea::Entry,  dependent: :delete_all
+  has_many :entries, class_name: Aldea::Entry, dependent: :delete_all
   has_many :events, class_name: Aldea::Event, through: :entries
   belongs_to :college, class_name: Cuenta::College
 end

@@ -1,5 +1,5 @@
 ActiveAdmin.register Aldea::Event do
-  menu parent: "Aldea"
+  menu parent: 'Aldea'
 
   decorate_with Aldea::EventDecorator
 
@@ -48,13 +48,13 @@ ActiveAdmin.register Aldea::Event do
       row :updated_at
     end
 
-    panel "Event Entries" do
+    panel 'Event Entries' do
       table_for aldea_event.entries do
         column :user
       end
     end
 
-    panel "Event Comment" do
+    panel 'Event Comment' do
       table_for aldea_event.comments do
         column :user
         column :body
@@ -66,7 +66,7 @@ ActiveAdmin.register Aldea::Event do
   end
 
   form do |f|
-    f.semantic_errors *f.object.errors.keys
+    f.semantic_errors(*f.object.errors.keys)
     inputs 'Event' do
       input :title, required: true
       input :body, required: true
