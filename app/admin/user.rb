@@ -75,7 +75,7 @@ ActiveAdmin.register Cuenta::User do
       begin
         model.create(
           name: hash[:name],
-          number: number.upcase,
+          number: number,
           college_id: college.id,
           image: image_name,
           encrypted_password: BCrypt::Password.create(random_password),
