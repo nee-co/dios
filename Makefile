@@ -1,4 +1,4 @@
-.PHONY: db app migrate seed networks
+.PHONY: db app migrate seed network
 
 db:
 	docker-compose up -d dios-database
@@ -13,9 +13,4 @@ seed:
 	docker-compose run --rm dios-application bundle exec rails db:seed
 
 networks:
-	@docker network create neeco_dios || true
-	@docker network create neeco_dios-aldea || true
-	@docker network create neeco_dios-caja || true
-	@docker network create neeco_dios-cuenta || true
-	@docker network create neeco_dios-imagen || true
-	@docker network create neeco_dios-kong || true
+	@docker network create neeco_develop || true

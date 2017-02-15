@@ -9,7 +9,7 @@ services:
     volumes:
       - dios:/var/lib/mysql
     networks:
-      - dios
+      - neeco
   dios-application:
     image: registry.neec.xyz/dev/dios-application:latest
     environment:
@@ -37,33 +37,13 @@ services:
     volumes:
       - .:/app
     networks:
-      - dios
-      - dios-aldea
-      - dios-caja
-      - dios-cuenta
-      - dios-imagen
-      - dios-kong
+      - neeco
 
 volumes:
   dios:
     driver: local
 
 networks:
-  dios:
+  neeco:
     external:
-      name: neeco_dios
-  dios-aldea:
-    external:
-      name: neeco_dios-aldea
-  dios-caja:
-    external:
-      name: neeco_dios-caja
-  dios-cuenta:
-    external:
-      name: neeco_dios-cuenta
-  dios-imagen:
-    external:
-      name: neeco_dios-imagen
-  dios-kong:
-    external:
-      name: neeco_dios-kong
+      name: neeco_develop
