@@ -82,4 +82,4 @@ alpine> RAILS_ENV=development bundle exec rails server
 ### Docker Task
 
 * ネットワーク作成
-    + `make networks`
+    + `make network`
